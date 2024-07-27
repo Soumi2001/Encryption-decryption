@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Caesar Cipher</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+        }
+        input, button {
+            margin: 10px 0;
+        }
+    </style>
+    <link rel="stylesheet" href="styles/main.css" />
+</head>
+<body>
+    <nav>
+        <a href="generate-keys.html">Generate Keys</a>
+        <a href="encrypt-text.html">Encrypt Text</a>
+        <a href="decrypt-text.html">Decrypt Text</a>
+        <a href="encrypt-file.html">Encrypt File</a>
+        <a href="decrypt-file.html">Decrypt File</a>
+        <a class="selected" href="CEASER-CIPHER.HTML">Ceaser cipher</a>
+    </nav>
+
+    <div class="page">
+        <h1>Caesar Cipher</h1>
+        <div class="field">
+            <label for="public-key">Enter shift value:</label>
+            <textarea id="shift" rows=10></textarea>
+        </div>    
+        
+        <div class="field">
+            <label for="text-to-encrypt">Text to Encrypt</label>
+            <textarea id="text-to-encrypt" rows="10"></textarea>
+        </div>
+
+    <button id="button" onclick="encrypt()">Encrypt</button>
+    <button onclick="encrypt()">Encrypt</button>
+
+    <h2>Encrypted Text:</h2>
+    <p id="result"></p>
+    
+
+    <script>
+        function encrypt() {
+            const inputText = document.getElementById('text-to-encrypt').value;
+            const shift = parseInt(document.getElementById('shift').value);
+            let result = '';
+
+            for (let i = 0; i < inputText.length; i++) {
+                const char = inputText[i];
+
+                if (char.match(/[a-z]/i)) {
+                    const code = inputText.charCodeAt(i);
+
+                    if (code >= 65 && code <= 90) {
+                        result += String.fromCharCode(((code - 65 + shift) % 26) + 65);
+                    } else if (code >= 97 && code <= 122) {
+                        result += String.fromCharCode(((code - 97 + shift) % 26) + 97);
+                    }
+                } else {
+                    result += char;
+                }
+            }
+
+            document.getElementById('result').innerText = result;
+        }
+    </script>
+</body>
+</html>
